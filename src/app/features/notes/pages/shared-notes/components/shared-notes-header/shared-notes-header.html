@@ -1,0 +1,44 @@
+ <div class="mb-6">
+    <div class="mb-4.5 flex items-center gap-1.5 text-[0.8125rem] text-[#888]">
+      <a routerLink="/" class="flex items-center gap-0.75 font-medium text-[#888] no-underline transition-colors duration-150 hover:text-[#333]">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+        Home
+      </a>
+      <span class="text-[#ccc]">/</span>
+      <span class="font-medium text-[#333]">All notes</span>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <div class="flex max-w-85 flex-1 items-center gap-2 rounded-[10px] border border-[#e8e8e8] bg-white px-3 py-2 transition-[border-color,box-shadow] duration-150 focus-within:border-[#bbb] focus-within:shadow-[0_0_0_3px_rgba(0,0,0,0.04)]">
+        <svg class="shrink-0 text-[#bbb]" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" class="w-full border-none bg-transparent text-[0.8125rem] text-[#333] outline-none placeholder:text-[#bbb]" placeholder="Search a note" />
+      </div>
+
+      <div class="ml-auto flex items-center gap-2">
+        <button class="flex cursor-pointer items-center gap-1.5 rounded-lg border border-[#e8e8e8] bg-white px-3 py-1.75 text-[0.8rem] font-medium text-[#555] transition-[background,border-color] duration-150 hover:border-[#ddd] hover:bg-[#f5f5f5]">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+          </svg>
+          Filters
+        </button>
+        <div class="flex overflow-hidden rounded-lg border border-[#e8e8e8] bg-white">
+          <button class="flex h-8 w-8 cursor-pointer items-center justify-center border-none bg-[#f0f0f0] text-[#333] transition-[background,color] duration-150 hover:bg-[#f5f5f5]" title="Grid view">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+            </svg>
+          </button>
+          <button class="flex h-8 w-8 cursor-pointer items-center justify-center border-none bg-transparent text-[#aaa] transition-[background,color] duration-150 hover:bg-[#f5f5f5] hover:text-[#555]" title="List view">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
+              <circle cx="3" cy="6" r="1" fill="currentColor"/><circle cx="3" cy="12" r="1" fill="currentColor"/><circle cx="3" cy="18" r="1" fill="currentColor"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

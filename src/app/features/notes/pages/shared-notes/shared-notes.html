@@ -1,0 +1,10 @@
+<div class="w-full px-8 py-7">
+  <!-- Header -->
+  <app-shared-notes-header />
+  <!-- Notes grid -->
+  <div class="grid grid-cols-4 items-start gap-4 max-[600px]:grid-cols-1">
+    @for (note of notes; track note.id) {
+    <app-note-template [note]="note" />
+    }
+  </div>
+</div>

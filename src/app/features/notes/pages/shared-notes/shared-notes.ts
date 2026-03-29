@@ -1,12 +1,108 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { PublicNote } from '../../../../core/models/core.models';
+import { NoteTemplate } from '../../../../shared/components/note-template/note-template';
+import { SharedNotesHeader } from './components/shared-notes-header/shared-notes-header';
 
 @Component({
   selector: 'app-shared-notes',
-  template: `
-    <div style="padding: 2rem;">
-      <h1>Shared Notes</h1>
-      <p>Public notes visible to everyone.</p>
-    </div>
-  `,
+  imports: [RouterLink, SharedNotesHeader, NoteTemplate],
+  templateUrl: './shared-notes.html',
+  styleUrl: './shared-notes.css',
 })
-export class SharedNotes {}
+export class SharedNotes {
+  protected readonly notes: PublicNote[] = [
+    {
+      id: 1,
+      notebook: 'Psychology',
+      notebookColor: '#d63384',
+      bgColor: '#fff0f5',
+      tags: ['Studies 🐼', 'University 📚'],
+      tagBg: '#fcd7e8',
+      tagColor: '#b5245e',
+      title: 'Introduction to Psychology 👩',
+      subtitle: 'Week 1, lecture notes',
+      body: "What is Psychology?\nPsychology is the scientific study of behavior and mental processes, divided into several 'schools'...",
+    },
+    {
+      id: 2,
+      notebook: 'Groceries',
+      notebookColor: '#5b5ea6',
+      bgColor: '#eef0f8',
+      tags: ['Food 🍕'],
+      tagBg: '#d8dcf2',
+      tagColor: '#3c3f7a',
+      title: 'Grocery list 🛒',
+      isList: true,
+      listItems: ['Milk', 'Chicken breast', 'Apple Juice', 'Cherry tomatoes', 'Blueberries', 'Steak...'],
+    },
+    {
+      id: 3,
+      notebook: 'Thai Chicken',
+      notebookColor: '#555',
+      bgColor: '#ffffff',
+      tags: ['Food 🍕'],
+      tagBg: '#efefef',
+      tagColor: '#555',
+      title: 'Recipe 🍜',
+      body: 'Protein:\n• 500g (1 lb) ground chicken (or finely chopped chicken breast/thigh)\n\nSauce Mix:\n• 2 tbsp oyster sauce...',
+    },
+    {
+      id: 4,
+      notebook: 'Autumn is coming',
+      notebookColor: '#2a7a3b',
+      bgColor: '#f0fdf4',
+      tags: ['Diary 📔', 'Thoughts 💭'],
+      tagBg: '#bbedca',
+      tagColor: '#1a5c2a',
+      title: "I'm exhausted all over again 🥺",
+      body: "Today feels heavy. My body moves slow, my thoughts even slower. I just want to curl up, close my eyes, and let the world fade for a while.\n\nI don't wanna go to uni tomorrow...",
+    },
+    {
+      id: 5,
+      notebook: 'Psychology',
+      notebookColor: '#d63384',
+      bgColor: '#fff0f5',
+      tags: ['Studies 🐼', 'University 📚'],
+      tagBg: '#fcd7e8',
+      tagColor: '#b5245e',
+      title: 'Introduction to Psychology 👩',
+      subtitle: 'Week 1, lecture notes',
+      body: "What is Psychology?\nPsychology is the scientific study of behavior and mental processes, divided into several 'schools'...",
+    },
+    {
+      id: 6,
+      notebook: 'Groceries',
+      notebookColor: '#5b5ea6',
+      bgColor: '#eef0f8',
+      tags: ['Food 🍕'],
+      tagBg: '#d8dcf2',
+      tagColor: '#3c3f7a',
+      title: 'Grocery list 🛒',
+      isList: true,
+      listItems: ['Milk', 'Chicken breast', 'Apple Juice', 'Cherry tomatoes', 'Blueberries', 'Steak...'],
+    },
+    {
+      id: 7,
+      notebook: 'Thai Chicken',
+      notebookColor: '#555',
+      bgColor: '#ffffff',
+      tags: ['Food 🍕'],
+      tagBg: '#efefef',
+      tagColor: '#555',
+      title: 'Recipe 🍜',
+      body: 'Protein:\n• 500g (1 lb) ground chicken (or finely chopped chicken breast/thigh)\n\nSauce Mix:\n• 2 tbsp oyster sauce...',
+    },
+    {
+      id: 8,
+      notebook: 'Autumn is coming',
+      notebookColor: '#2a7a3b',
+      bgColor: '#f0fdf4',
+      tags: ['Diary 📔', 'Thoughts 💭'],
+      tagBg: '#bbedca',
+      tagColor: '#1a5c2a',
+      title: "I'm exhausted all over again 🥺",
+      body: "Today feels heavy. My body moves slow, my thoughts even slower. I just want to curl up, close my eyes, and let the world fade for a while.\n\nI don't wanna go to uni tomorrow...",
+    },
+  ];
+}
