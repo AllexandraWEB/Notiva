@@ -1,0 +1,8 @@
+<div class="notes-layout">
+  @if (authStore.isAuthenticated()) {
+    <app-sidebar />
+  }
+  <main class="notes-layout__content">
+    <router-outlet />
+  </main>
+</div>

@@ -1,0 +1,94 @@
+<div
+  class="group flex cursor-pointer flex-col gap-2.5 rounded-2xl border border-black/5 p-4.5 transition-[box-shadow,transform] duration-150 hover:-translate-y-px hover:shadow-[0_4px_18px_rgba(0,0,0,0.08)]"
+  [style.background]="note.bgColor"
+>
+  <!-- Card header -->
+  <div class="flex items-center justify-between">
+    <span class="text-sm font-semibold" [style.color]="note.notebookColor"
+      >{{ note.notebook }}</span
+    >
+    <div
+      class="flex items-center gap-0.5 opacity-0 transition-opacity duration-150 group-hover:opacity-100"
+    >
+      <button
+        class="flex h-6.5 w-6.5 cursor-pointer items-center justify-center rounded-md border-none bg-transparent text-[#888] transition-[background,color] duration-100 hover:bg-black/7 hover:text-[#333]"
+        title="Add"
+      >
+        <svg
+          width="13"
+          height="13"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+        >
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+      </button>
+      <button
+        class="flex h-6.5 w-6.5 cursor-pointer items-center justify-center rounded-md border-none bg-transparent text-[#888] transition-[background,color] duration-100 hover:bg-black/7 hover:text-[#333]"
+        title="More options"
+      >
+        <svg
+          width="13"
+          height="13"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+        >
+          <circle cx="5" cy="12" r="1" fill="currentColor" />
+          <circle cx="12" cy="12" r="1" fill="currentColor" />
+          <circle cx="19" cy="12" r="1" fill="currentColor" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Tags -->
+  @if (note.tags.length > 0) {
+  <div class="flex flex-wrap gap-1.25">
+    @for (tag of note.tags; track tag) {
+    <span
+      class="rounded-[20px] px-2 py-0.5 text-[0.7rem] font-medium"
+      [style.background]="note.tagBg"
+      [style.color]="note.tagColor"
+      >{{ tag }}</span
+    >
+    }
+  </div>
+  }
+
+  <!-- Title -->
+  <h3 class="m-0 text-base leading-[1.35] font-bold text-[#111]">
+    {{ note.title }}
+  </h3>
+
+  <!-- Subtitle -->
+  @if (note.subtitle) {
+  <p class="m-0 text-[0.775rem] leading-[1.4] text-[#888]">
+    {{ note.subtitle }}
+  </p>
+  }
+
+  <!-- List content -->
+  @if (note.isList && note.listItems) {
+  <ul class="m-0 flex list-none flex-col gap-0.75 p-0">
+    @for (item of note.listItems; track item) {
+    <li class="text-[0.8125rem] leading-normal text-[#444]">{{ item }}</li>
+    }
+  </ul>
+  }
+
+  <!-- Body text -->
+  @if (note.body) {
+  <p
+    class="m-0 overflow-hidden whitespace-pre-line text-[0.8rem] leading-[1.6] text-[#666] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:5]"
+  >
+    {{ note.body }}
+  </p>
+  }
+</div>
