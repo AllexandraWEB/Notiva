@@ -6,7 +6,7 @@
 .notes-layout {
   display: flex;
   min-height: 100vh;
-  background: #f7f7f8;
+  background: #fafafa;
 }
 
 .notes-layout__content {

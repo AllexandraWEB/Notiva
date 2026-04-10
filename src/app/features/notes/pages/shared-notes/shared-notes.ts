@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { PublicNote } from '../../../../core/models/core.models';
 import { NoteTemplate } from '../../../../shared/components/note-template/note-template';
 import { SharedNotesHeader } from './components/shared-notes-header/shared-notes-header';
 
 @Component({
   selector: 'app-shared-notes',
-  imports: [RouterLink, SharedNotesHeader, NoteTemplate],
+  imports: [SharedNotesHeader, NoteTemplate],
   templateUrl: './shared-notes.html',
   styleUrl: './shared-notes.css',
 })
