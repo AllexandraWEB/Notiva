@@ -1,12 +1,9 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-notebooks',
-  template: `
-    <div style="padding: 2rem;">
-      <h1>Notebooks</h1>
-      <p>Your personal notebooks.</p>
-    </div>
-  `,
+  selector: "app-notebooks",
+  imports: [],
+  templateUrl: "./notebooks.html",
+  styleUrl: "./notebooks.css",
 })
 export class Notebooks {}

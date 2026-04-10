@@ -1,12 +1,9 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-recent',
-  template: `
-    <div style="padding: 2rem;">
-      <h1>Recent Notes</h1>
-      <p>Your recently visited notes.</p>
-    </div>
-  `,
+  selector: "app-recent",
+  imports: [],
+  templateUrl: "./recent.html",
+  styleUrl: "./recent.css",
 })
 export class Recent {}

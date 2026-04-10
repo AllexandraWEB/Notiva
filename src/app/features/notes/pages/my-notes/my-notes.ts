@@ -1,12 +1,9 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-my-notes',
-  template: `
-    <div style="padding: 2rem;">
-      <h1>My Notes</h1>
-      <p>Your private notes.</p>
-    </div>
-  `,
+  selector: "app-my-notes",
+  imports: [],
+  templateUrl: "./my-notes.html",
+  styleUrl: "./my-notes.css",
 })
 export class MyNotes {}

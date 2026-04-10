@@ -1,12 +1,9 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-favorites',
-  template: `
-    <div style="padding: 2rem;">
-      <h1>Favorites</h1>
-      <p>Your favourite notes.</p>
-    </div>
-  `,
+  selector: "app-favorites",
+  imports: [],
+  templateUrl: "./favorites.html",
+  styleUrl: "./favorites.css",
 })
 export class Favorites {}
