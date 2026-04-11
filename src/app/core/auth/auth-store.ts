@@ -52,7 +52,7 @@ export class AuthStore {
     if (error) {
       this._error.set(this.mapAuthError(error.message));
     } else {
-      await this.router.navigate(['/']);
+      await this.router.navigate(['/home']);
     }
   }
 
@@ -64,7 +64,7 @@ export class AuthStore {
     if (error) {
       this._error.set(this.mapAuthError(error.message));
     } else {
-      await this.router.navigate(['/']);
+      await this.router.navigate(['/home']);
     }
   }
 

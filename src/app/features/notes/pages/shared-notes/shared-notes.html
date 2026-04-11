@@ -1,10 +1,28 @@
-<div class="m-3 h-[calc(100dvh-1.5rem)] bg-white rounded-lg border-neutral-200 border px-8 py-7">
-  <!-- Header -->
+<div class="m-3 min-h-[calc(100dvh-1.5rem)] rounded-lg border border-neutral-200 bg-white px-8 py-7">
   <app-shared-notes-header />
-  <!-- Notes grid -->
-  <div class="grid grid-col-1 xl:grid-cols-4 items-start justify-center gap-4">
-    @for (note of notes; track note.id) {
-    <app-note-template [note]="note" />
-    }
-  </div>
+
+  @if (notesStore.error()) {
+    <div class="mb-4 rounded-2xl border border-[#f1c9c4] bg-[#fff5f3] px-4 py-3 text-sm text-[#a63c30]">
+      {{ notesStore.error() }}
+    </div>
+  }
+
+  @if (notesStore.loading()) {
+    <div class="rounded-2xl border border-dashed border-neutral-200 bg-neutral-50 px-6 py-10 text-center text-sm text-[#666]">
+      Loading notes from Supabase...
+    </div>
+  } @else if (notes().length > 0) {
+    <div class="grid grid-cols-1 items-start justify-center gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      @for (note of notes(); track note.id) {
+        <app-note-template [note]="note" />
+      }
+    </div>
+  } @else {
+    <div class="rounded-2xl border border-dashed border-neutral-200 bg-neutral-50 px-6 py-10 text-center">
+      <h2 class="text-lg font-semibold text-[#111]">No public notes yet</h2>
+      <p class="mt-2 text-sm text-[#666]">
+        Add a note from the sidebar and choose <strong>Public</strong> to have it appear here.
+      </p>
+    </div>
+  }
 </div>

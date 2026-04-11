@@ -1,18 +1,19 @@
-import { Component } from "@angular/core";
-import { NgIcon, provideIcons } from "@ng-icons/core";
-import { radixMagnifyingGlass } from "@ng-icons/radix-icons";
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { radixMagnifyingGlass } from '@ng-icons/radix-icons';
 import {
+  lucideChevronLeft,
   lucideFilter,
   lucideLayoutGrid,
   lucideList,
-  lucideChevronLeft,
-} from "@ng-icons/lucide";
+} from '@ng-icons/lucide';
 
 @Component({
-  selector: "app-shared-notes-header",
-  imports: [NgIcon],
-  templateUrl: "./shared-notes-header.html",
-  styleUrl: "./shared-notes-header.css",
+  selector: 'app-shared-notes-header',
+  imports: [NgIcon, RouterLink],
+  templateUrl: './shared-notes-header.html',
+  styleUrl: './shared-notes-header.css',
   viewProviders: [
     provideIcons({
       radixMagnifyingGlass,
