@@ -14,6 +14,12 @@ export interface SupabaseNoteRow {
   created_at: string;
 }
 
+export interface SupabaseFavoriteRow {
+  note_id: number;
+  user_id: string;
+  created_at: string;
+}
+
 export interface SupabaseNoteInsert {
   title: string;
   category: string;
@@ -67,11 +73,40 @@ export class SupabaseService {
       .order('created_at', { ascending: false });
   }
 
+  getFavoriteNoteIds() {
+    return this.client.from('note_favorites').select('note_id, user_id, created_at');
+  }
+
   getNoteById(id: number) {
     return this.client.from('notes').select('*').eq('id', id).maybeSingle();
   }
 
   createNote(payload: SupabaseNoteInsert) {
     return this.client.from('notes').insert(payload).select('*').single();
+  }
+
+  updateNote(id: number, payload: SupabaseNoteInsert) {
+    return this.client
+      .from('notes')
+      .update(payload)
+      .eq('id', id)
+      .select('*')
+      .single();
+  }
+
+  deleteNote(id: number) {
+    return this.client.from('notes').delete().eq('id', id);
+  }
+
+  addFavorite(noteId: number) {
+    return this.client
+      .from('note_favorites')
+      .upsert({ note_id: noteId }, { onConflict: 'note_id,user_id' })
+      .select('note_id')
+      .single();
+  }
+
+  removeFavorite(noteId: number) {
+    return this.client.from('note_favorites').delete().eq('note_id', noteId);
   }
 }

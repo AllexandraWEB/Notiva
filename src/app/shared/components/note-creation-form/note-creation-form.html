@@ -10,11 +10,17 @@
       <div class="mb-5 flex items-start justify-between gap-4">
         <div>
           <p class="text-[0.7rem] font-semibold tracking-[0.22em] text-[#999] uppercase">
-            Create note
+            {{ isEditing() ? 'Edit note' : 'Create note' }}
           </p>
-          <h2 class="mt-1 text-xl font-semibold text-[#111]">Add a new note</h2>
+          <h2 class="mt-1 text-xl font-semibold text-[#111]">
+            {{ isEditing() ? 'Update your note' : 'Add a new note' }}
+          </h2>
           <p class="mt-1 text-sm text-[#666]">
-            Choose where it belongs, pick a color, and decide whether it is public or private.
+            {{
+              isEditing()
+                ? 'Change the title, content, visibility, or color of your note.'
+                : 'Choose where it belongs, pick a color, and decide whether it is public or private.'
+            }}
           </p>
         </div>
 
@@ -127,7 +133,11 @@
             class="rounded-xl bg-[#111] px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
             [disabled]="notesStore.saving()"
           >
-            {{ notesStore.saving() ? 'Saving...' : 'Save note' }}
+            {{
+              notesStore.saving()
+                ? (isEditing() ? 'Updating...' : 'Saving...')
+                : (isEditing() ? 'Update note' : 'Save note')
+            }}
           </button>
         </div>
       </form>

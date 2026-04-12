@@ -15,4 +15,6 @@ export interface PublicNote {
   listItems?: string[];
   visibility: NoteVisibility;
   createdAt: string;
+  authorId: string;
+  isFavorite: boolean;
 }

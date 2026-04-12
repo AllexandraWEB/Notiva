@@ -15,7 +15,26 @@ create index if not exists notes_created_at_idx on public.notes (created_at desc
 create index if not exists notes_user_id_idx on public.notes (user_id);
 create index if not exists notes_visibility_idx on public.notes (visibility);
 
+create table if not exists public.note_favorites (
+  note_id bigint not null references public.notes (id) on delete cascade,
+  user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
+  created_at timestamptz not null default timezone('utc', now()),
+  primary key (note_id, user_id)
+);
+
+create index if not exists note_favorites_user_id_idx on public.note_favorites (user_id);
+create index if not exists note_favorites_note_id_idx on public.note_favorites (note_id);
+
 alter table public.notes enable row level security;
+alter table public.note_favorites enable row level security;
+
+drop policy if exists "Public notes are readable by everyone" on public.notes;
+drop policy if exists "Authenticated users can insert their own notes" on public.notes;
+drop policy if exists "Users can update their own notes" on public.notes;
+drop policy if exists "Users can delete their own notes" on public.notes;
+drop policy if exists "Users can view their own favorites" on public.note_favorites;
+drop policy if exists "Users can insert their own favorites" on public.note_favorites;
+drop policy if exists "Users can delete their own favorites" on public.note_favorites;
 
 create policy "Public notes are readable by everyone"
 on public.notes
@@ -37,6 +56,24 @@ with check (auth.uid() = user_id);
 
 create policy "Users can delete their own notes"
 on public.notes
+for delete
+to authenticated
+using (auth.uid() = user_id);
+
+create policy "Users can view their own favorites"
+on public.note_favorites
+for select
+to authenticated
+using (auth.uid() = user_id);
+
+create policy "Users can insert their own favorites"
+on public.note_favorites
+for insert
+to authenticated
+with check (auth.uid() = user_id);
+
+create policy "Users can delete their own favorites"
+on public.note_favorites
 for delete
 to authenticated
 using (auth.uid() = user_id);

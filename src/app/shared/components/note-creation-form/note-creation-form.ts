@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NotesStore } from '../../services/notes-store';
 
@@ -12,6 +12,8 @@ export class NoteCreationForm {
   protected readonly notesStore = inject(NotesStore);
   private readonly formBuilder = inject(FormBuilder);
 
+  protected readonly isEditing = computed(() => this.notesStore.editingNote() !== null);
+
   protected readonly form = this.formBuilder.nonNullable.group({
     title: ['', [Validators.required, Validators.maxLength(80)]],
     category: [this.notesStore.categories()[0] ?? 'Personal', Validators.required],
@@ -22,6 +24,22 @@ export class NoteCreationForm {
     ),
     bgColor: [this.notesStore.colorOptions[0].value, Validators.required],
   });
+
+  constructor() {
+    effect(() => {
+      const note = this.notesStore.editingNote();
+
+      if (note) {
+        this.form.reset({
+          title: note.title,
+          category: note.notebook,
+          body: note.body ?? '',
+          visibility: note.visibility,
+          bgColor: note.bgColor,
+        });
+      }
+    });
+  }
 
   protected selectColor(color: string): void {
     this.notesStore.clearError();
@@ -39,9 +57,12 @@ export class NoteCreationForm {
       return;
     }
 
-    const created = await this.notesStore.addNote(this.form.getRawValue());
+    const currentEditingNote = this.notesStore.editingNote();
+    const saved = currentEditingNote
+      ? await this.notesStore.updateNote(currentEditingNote.id, this.form.getRawValue())
+      : await this.notesStore.addNote(this.form.getRawValue());
 
-    if (created) {
+    if (saved) {
       this.resetForm();
     }
   }
