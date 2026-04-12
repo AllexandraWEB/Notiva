@@ -1,0 +1,47 @@
+<div class="white-container">
+  <div class="mb-6">
+    <span class="span-text"> Categories </span>
+    <h1 class="title-h1">Browse by category</h1>
+    <p class="mt-2 text-sm text-[#666]">
+      Pick a category to list notes that match your selection.
+    </p>
+  </div>
+
+  <div class="mb-6 flex flex-wrap gap-2">
+    @for (category of categories; track category) {
+    <button
+      type="button"
+      class="button-style"
+      [class.border-black]="selectedCategory() === category"
+      [class.bg-black]="selectedCategory() === category"
+      [class.text-white]="selectedCategory() === category"
+      [class.border-neutral-200]="selectedCategory() !== category"
+      [class.text-[#555]]="selectedCategory() !== category"
+      (click)="selectCategory(category)"
+    >
+      {{ category }}
+    </button>
+    }
+  </div>
+
+  @if (notesStore.loading()) {
+  <div class="loader">Loading notes from Supabase...</div>
+  } @else if (filteredNotes().length > 0) {
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    @for (note of filteredNotes(); track note.id) {
+    <app-note-template [note]="note" />
+    }
+  </div>
+  } @else {
+  <div
+    class="empty-container"
+  >
+    <h2 class="text-lg font-semibold text-[#111]">
+      No notes in {{ selectedCategory() }}
+    </h2>
+    <p class="mt-2 text-sm text-[#666]">
+      Create a note with this category to see it listed here.
+    </p>
+  </div>
+  }
+</div>

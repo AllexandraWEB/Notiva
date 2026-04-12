@@ -57,6 +57,15 @@ export const routes: Routes = [
           import('./features/notes/pages/recent/recent').then((m) => m.Recent),
       },
       {
+        path: 'categories',
+        canActivate: [authGuard],
+        title: 'Categories – Notiva',
+        loadComponent: () =>
+          import('./features/notes/pages/categories/categories').then(
+            (m) => m.Categories
+          ),
+      },
+      {
         path: 'notebooks',
         canActivate: [authGuard],
         title: 'Notebooks – Notiva',
