@@ -1,32 +1,7 @@
 import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import { NoteVisibility } from '../models/core.models';
 import { environment } from '../../../environments/environment';
-
-export interface SupabaseNoteRow {
-  id: number;
-  user_id: string;
-  title: string;
-  category: string;
-  body: string;
-  visibility: NoteVisibility;
-  bg_color: string;
-  created_at: string;
-}
-
-export interface SupabaseFavoriteRow {
-  note_id: number;
-  user_id: string;
-  created_at: string;
-}
-
-export interface SupabaseNoteInsert {
-  title: string;
-  category: string;
-  body: string;
-  visibility: NoteVisibility;
-  bg_color: string;
-}
+import { SupabaseNoteInsert } from '../models/supabase-note-insert.model';
 
 @Injectable({ providedIn: 'root' })
 export class SupabaseService {

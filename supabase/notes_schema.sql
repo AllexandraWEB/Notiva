@@ -28,14 +28,6 @@ create index if not exists note_favorites_note_id_idx on public.note_favorites (
 alter table public.notes enable row level security;
 alter table public.note_favorites enable row level security;
 
-drop policy if exists "Public notes are readable by everyone" on public.notes;
-drop policy if exists "Authenticated users can insert their own notes" on public.notes;
-drop policy if exists "Users can update their own notes" on public.notes;
-drop policy if exists "Users can delete their own notes" on public.notes;
-drop policy if exists "Users can view their own favorites" on public.note_favorites;
-drop policy if exists "Users can insert their own favorites" on public.note_favorites;
-drop policy if exists "Users can delete their own favorites" on public.note_favorites;
-
 create policy "Public notes are readable by everyone"
 on public.notes
 for select

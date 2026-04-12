@@ -1,77 +1,14 @@
-import { Injectable, computed, effect, inject, signal } from '@angular/core';
-import { AuthStore } from '../../core/auth/auth-store';
-import { NoteVisibility, PublicNote } from '../../core/models/core.models';
-import {
-  SupabaseFavoriteRow,
-  SupabaseNoteInsert,
-  SupabaseNoteRow,
-  SupabaseService,
-} from '../../core/services/supabase.service';
+import { Injectable, computed, effect, inject, signal } from "@angular/core";
+import { AuthStore } from "../../core/auth/auth-store";
+import { PublicNote } from "../../core/models/core.models";
+import { SupabaseService } from "../../core/services/supabase.service";
+import { CreateNotePayload } from "../models/note-payload.model";
+import { COLOR_OPTIONS, DEFAULT_CATEGORIES } from "../consts/consts";
+import { SupabaseFavoriteRow } from "../../core/models/supabase-favorite.model";
+import { SupabaseNoteInsert } from "../../core/models/supabase-note-insert.model";
+import { SupabaseNoteRow } from "../../core/models/supabase-note-row.model";
 
-export interface CreateNotePayload {
-  title: string;
-  category: string;
-  body: string;
-  visibility: NoteVisibility;
-  bgColor: string;
-}
-
-interface NoteColorOption {
-  name: string;
-  value: string;
-  accent: string;
-  tagBg: string;
-  tagColor: string;
-}
-
-const DEFAULT_CATEGORIES = [
-  'Personal',
-  'Work',
-  'University',
-  'Ideas',
-  'Recipes',
-  'Diary',
-];
-
-const COLOR_OPTIONS: NoteColorOption[] = [
-  {
-    name: 'Rose',
-    value: '#fff0f5',
-    accent: '#d63384',
-    tagBg: '#fcd7e8',
-    tagColor: '#b5245e',
-  },
-  {
-    name: 'Lavender',
-    value: '#eef0f8',
-    accent: '#5b5ea6',
-    tagBg: '#d8dcf2',
-    tagColor: '#3c3f7a',
-  },
-  {
-    name: 'Mint',
-    value: '#f0fdf4',
-    accent: '#2a7a3b',
-    tagBg: '#bbedca',
-    tagColor: '#1a5c2a',
-  },
-  {
-    name: 'Sand',
-    value: '#fff7ed',
-    accent: '#c67a2a',
-    tagBg: '#fde5c8',
-    tagColor: '#9b5b12',
-  },
-  {
-    name: 'Cloud',
-    value: '#f8fafc',
-    accent: '#475569',
-    tagBg: '#e2e8f0',
-    tagColor: '#334155',
-  },
-];
-
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class NotesStore {
   private readonly authStore = inject(AuthStore);
   private readonly supabase = inject(SupabaseService);
@@ -90,23 +27,23 @@ export class NotesStore {
   readonly saving = this._saving.asReadonly();
   readonly error = this._error.asReadonly();
   readonly publicNotes = computed(() =>
-    this._notes().filter((note) => note.visibility === 'public')
+    this._notes().filter((note) => note.visibility === "public"),
   );
   readonly privateNotes = computed(() =>
     this._notes().filter(
-      (note) => note.visibility === 'private' && this.isOwner(note)
-    )
+      (note) => note.visibility === "private" && this.isOwner(note),
+    ),
   );
   readonly favoriteNotes = computed(() =>
-    this._notes().filter((note) => note.isFavorite)
+    this._notes().filter((note) => note.isFavorite),
   );
   readonly categories = computed(() =>
     Array.from(
       new Set([
         ...DEFAULT_CATEGORIES,
         ...this._notes().map((note) => note.notebook),
-      ])
-    )
+      ]),
+    ),
   );
   readonly colorOptions = COLOR_OPTIONS;
 
@@ -125,7 +62,7 @@ export class NotesStore {
 
   startEditing(note: PublicNote): void {
     if (!this.isOwner(note)) {
-      this._error.set('Only the author of this note can edit it.');
+      this._error.set("Only the author of this note can edit it.");
       return;
     }
 
@@ -157,12 +94,14 @@ export class NotesStore {
         await this.supabase.getFavoriteNoteIds();
 
       if (favoriteError) {
-        this._error.set(this.mapError(favoriteError.code, favoriteError.message));
+        this._error.set(
+          this.mapError(favoriteError.code, favoriteError.message),
+        );
       } else {
         favoriteIds = new Set(
           ((favoriteData ?? []) as SupabaseFavoriteRow[]).map((row) =>
-            Number(row.note_id)
-          )
+            Number(row.note_id),
+          ),
         );
       }
     }
@@ -171,7 +110,9 @@ export class NotesStore {
 
     if (notesResult.error) {
       this._notes.set([]);
-      this._error.set(this.mapError(notesResult.error.code, notesResult.error.message));
+      this._error.set(
+        this.mapError(notesResult.error.code, notesResult.error.message),
+      );
       return;
     }
 
@@ -180,13 +121,17 @@ export class NotesStore {
     }
 
     this._notes.set(
-      (notesResult.data ?? []).map((note) => this.mapRowToNote(note, favoriteIds))
+      (notesResult.data ?? []).map((note) =>
+        this.mapRowToNote(note, favoriteIds),
+      ),
     );
   }
 
   async addNote(payload: CreateNotePayload): Promise<PublicNote | null> {
     if (!this.authStore.isAuthenticated()) {
-      this._error.set('Please sign in first so the note can be saved to Supabase.');
+      this._error.set(
+        "Please sign in first so the note can be saved to Supabase.",
+      );
       return null;
     }
 
@@ -212,12 +157,12 @@ export class NotesStore {
 
   async updateNote(
     noteId: number,
-    payload: CreateNotePayload
+    payload: CreateNotePayload,
   ): Promise<PublicNote | null> {
     const existingNote = this.getNoteById(noteId);
 
     if (!existingNote || !this.isOwner(existingNote)) {
-      this._error.set('Only the author of this note can edit it.');
+      this._error.set("Only the author of this note can edit it.");
       return null;
     }
 
@@ -226,7 +171,7 @@ export class NotesStore {
 
     const { data, error } = await this.supabase.updateNote(
       noteId,
-      this.mapPayloadToInsert(payload)
+      this.mapPayloadToInsert(payload),
     );
 
     this._saving.set(false);
@@ -238,11 +183,11 @@ export class NotesStore {
 
     const updatedNote = this.mapRowToNote(
       data as SupabaseNoteRow,
-      existingNote.isFavorite ? new Set([noteId]) : new Set()
+      existingNote.isFavorite ? new Set([noteId]) : new Set(),
     );
 
     this._notes.update((notes) =>
-      notes.map((note) => (note.id === noteId ? updatedNote : note))
+      notes.map((note) => (note.id === noteId ? updatedNote : note)),
     );
     this.closeCreateForm();
 
@@ -251,7 +196,7 @@ export class NotesStore {
 
   async deleteNote(note: PublicNote): Promise<boolean> {
     if (!this.isOwner(note)) {
-      this._error.set('Only the author of this note can delete it.');
+      this._error.set("Only the author of this note can delete it.");
       return false;
     }
 
@@ -262,13 +207,15 @@ export class NotesStore {
       return false;
     }
 
-    this._notes.update((notes) => notes.filter((existing) => existing.id !== note.id));
+    this._notes.update((notes) =>
+      notes.filter((existing) => existing.id !== note.id),
+    );
     return true;
   }
 
   async toggleFavorite(note: PublicNote): Promise<boolean> {
     if (!this.authStore.isAuthenticated()) {
-      this._error.set('Please sign in to save notes to favorites.');
+      this._error.set("Please sign in to save notes to favorites.");
       return false;
     }
 
@@ -287,8 +234,8 @@ export class NotesStore {
       notes.map((existing) =>
         existing.id === note.id
           ? { ...existing, isFavorite: !existing.isFavorite }
-          : existing
-      )
+          : existing,
+      ),
     );
 
     return true;
@@ -310,7 +257,7 @@ export class NotesStore {
 
   private mapRowToNote(
     note: SupabaseNoteRow,
-    favoriteIds: Set<number> = new Set()
+    favoriteIds: Set<number> = new Set(),
   ): PublicNote {
     const palette =
       COLOR_OPTIONS.find((option) => option.value === note.bg_color) ??
@@ -321,14 +268,14 @@ export class NotesStore {
       notebook: note.category,
       notebookColor: palette.accent,
       bgColor: note.bg_color,
-      tags: [note.visibility === 'public' ? 'Public 🌍' : 'Private 🔒'],
+      tags: [note.visibility === "public" ? "Public" : "Private"],
       tagBg: palette.tagBg,
       tagColor: palette.tagColor,
       title: note.title,
       subtitle:
-        note.visibility === 'public'
-          ? 'Visible in All notes'
-          : 'Visible only in Notebooks',
+        note.visibility === "public"
+          ? "Visible in All notes"
+          : "Visible only in Notebooks",
       body: note.body,
       visibility: note.visibility,
       createdAt: note.created_at,
@@ -342,12 +289,12 @@ export class NotesStore {
   }
 
   private mapError(code: string | null | undefined, message: string): string {
-    if (code === 'PGRST205') {
-      return 'Supabase notes or favorites tables are not set up yet. Run the SQL in `supabase/notes_schema.sql` once in the Supabase SQL Editor.';
+    if (code === "PGRST205") {
+      return "Supabase notes or favorites tables are not set up yet. Run the SQL in `supabase/notes_schema.sql` once in the Supabase SQL Editor.";
     }
 
-    if (message.toLowerCase().includes('row-level security')) {
-      return 'You can only edit or delete your own notes, and favorites require a signed-in account.';
+    if (message.toLowerCase().includes("row-level security")) {
+      return "You can only edit or delete your own notes, and favorites require a signed-in account.";
     }
 
     return message;
