@@ -18,6 +18,20 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'home',
+        title: 'Home – Notiva',
+        loadComponent: () =>
+          import('./features/home/home').then((m) => m.Home),
+      },
+      {
+        path: 'note/:id',
+        title: 'Note Details – Notiva',
+        loadComponent: () =>
+          import('./shared/components/note-details/note-details').then(
+            (m) => m.NoteDetails
+          ),
+      },
+      {
         path: 'notes',
         canActivate: [authGuard],
         title: 'My Notes – Notiva',

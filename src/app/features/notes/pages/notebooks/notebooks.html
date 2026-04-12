@@ -1,0 +1,41 @@
+<div class="m-3 min-h-[calc(100dvh-1.5rem)] rounded-lg border border-neutral-200 bg-white px-8 py-7">
+  <div class="mb-6">
+    <p class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-[#999]">
+      Private notebooks
+    </p>
+    <h1 class="mt-1 text-2xl font-semibold text-[#111]">Your private notes</h1>
+    <p class="mt-2 text-sm text-[#666]">
+      Notes saved as <strong>Private</strong> stay here and do not appear on the public All notes page.
+    </p>
+  </div>
+
+  @if (notesStore.error()) {
+    <div class="mb-4 rounded-2xl border border-[#f1c9c4] bg-[#fff5f3] px-4 py-3 text-sm text-[#a63c30]">
+      {{ notesStore.error() }}
+    </div>
+  }
+
+  @if (notesStore.loading()) {
+    <div class="rounded-2xl border border-dashed border-neutral-200 bg-neutral-50 px-6 py-10 text-center text-sm text-[#666]">
+      Loading your notebook notes from Supabase...
+    </div>
+  } @else if (groups().length > 0) {
+    @for (group of groups(); track group.name) {
+      <section class="mb-8">
+        <h2 class="mb-3 text-lg font-semibold text-[#222]">{{ group.name }}</h2>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          @for (note of group.notes; track note.id) {
+            <app-note-template [note]="note" />
+          }
+        </div>
+      </section>
+    }
+  } @else {
+    <div class="rounded-2xl border border-dashed border-neutral-200 bg-neutral-50 px-6 py-10 text-center">
+      <h2 class="text-lg font-semibold text-[#111]">No private notes yet</h2>
+      <p class="mt-2 text-sm text-[#666]">
+        Use the sidebar button to add a note and choose <strong>Private</strong> to keep it only in your notebooks.
+      </p>
+    </div>
+  }
+</div>

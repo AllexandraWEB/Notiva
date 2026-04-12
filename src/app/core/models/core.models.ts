@@ -1,3 +1,5 @@
+export type NoteVisibility = 'public' | 'private';
+
 export interface PublicNote {
   id: number;
   notebook: string;
@@ -11,4 +13,8 @@ export interface PublicNote {
   body?: string;
   isList?: boolean;
   listItems?: string[];
+  visibility: NoteVisibility;
+  createdAt: string;
+  authorId: string;
+  isFavorite: boolean;
 }

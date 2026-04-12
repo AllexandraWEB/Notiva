@@ -1,0 +1,24 @@
+@reference "tailwindcss";
+
+@layer components {
+  .top-header {
+    @apply mb-4.5 flex items-center gap-1.5 text-[0.8125rem] text-[#888];
+  }
+
+  .search-header {
+    @apply flex max-w-85 flex-1 items-center gap-2 rounded-[10px] border border-[#e8e8e8] bg-white px-3 py-2 transition-[border-color,box-shadow] duration-150 focus-within:border-[#bbb] focus-within:shadow-[0_0_0_3px_rgba(0,0,0,0.04)];
+  }
+
+  .filters-header {
+    @apply flex cursor-pointer items-center gap-1.5 rounded-lg border border-[#e8e8e8] bg-white px-3 py-1.75 text-[0.8rem] font-medium text-[#555] transition-[background,border-color] duration-150 hover:border-[#ddd] hover:bg-[#f5f5f5];
+  }
+  
+  .grid-button {
+    @apply flex h-8 w-8 cursor-pointer items-center justify-center border-none bg-[#f0f0f0] text-[#333] transition-[background,color] duration-150 hover:bg-[#f5f5f5];
+  }
+  
+  .listview-button {
+    @apply flex h-8 w-8 cursor-pointer items-center justify-center border-none bg-transparent text-[#aaa] transition-[background,color] duration-150 hover:bg-[#f5f5f5] hover:text-[#555];
+  }
+
+}

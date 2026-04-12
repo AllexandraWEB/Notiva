@@ -1,0 +1,56 @@
+@if (notesStore.loading()) {
+  <div class="m-3 min-h-[calc(100dvh-1.5rem)] rounded-lg border border-neutral-200 bg-white px-8 py-7">
+    <p class="text-sm text-[#666]">Loading note from Supabase...</p>
+  </div>
+} @else if (note(); as note) {
+  <div class="m-3 min-h-[calc(100dvh-1.5rem)] rounded-lg border border-neutral-200 bg-white px-8 py-7">
+    <a
+      routerLink="/"
+      class="inline-flex items-center gap-2 text-sm font-medium text-[#666] transition hover:text-[#111]"
+    >
+      ← Back to notes
+    </a>
+
+    <article
+      class="mt-4 rounded-[28px] border border-black/5 p-6"
+      [style.background]="note.bgColor"
+    >
+      <div class="flex flex-wrap items-center gap-2">
+        <span
+          class="rounded-full px-3 py-1 text-xs font-semibold"
+          [style.background]="note.tagBg"
+          [style.color]="note.tagColor"
+        >
+          {{ note.visibility === 'public' ? 'Public' : 'Private' }}
+        </span>
+        <span class="text-sm font-semibold" [style.color]="note.notebookColor">
+          {{ note.notebook }}
+        </span>
+        <span class="text-xs text-[#666]">{{ note.createdAt | date: 'mediumDate' }}</span>
+      </div>
+
+      <h1 class="mt-4 text-3xl font-bold text-[#111]">{{ note.title }}</h1>
+
+      @if (note.subtitle) {
+        <p class="mt-2 text-sm text-[#555]">{{ note.subtitle }}</p>
+      }
+
+      <div class="mt-6 whitespace-pre-line rounded-2xl bg-white/70 p-4 text-[0.95rem] leading-7 text-[#333]">
+        {{ note.body || 'No extra text for this note yet.' }}
+      </div>
+    </article>
+  </div>
+} @else {
+  <div class="m-3 min-h-[calc(100dvh-1.5rem)] rounded-lg border border-neutral-200 bg-white px-8 py-7">
+    @if (notesStore.error()) {
+      <div class="mb-4 rounded-2xl border border-[#f1c9c4] bg-[#fff5f3] px-4 py-3 text-sm text-[#a63c30]">
+        {{ notesStore.error() }}
+      </div>
+    }
+    <h1 class="text-2xl font-semibold text-[#111]">Note not found</h1>
+    <p class="mt-2 text-sm text-[#666]">
+      This note is not available yet. Create one from the sidebar and try again.
+    </p>
+    <a routerLink="/" class="mt-4 inline-flex text-sm font-medium text-[#111]">Go back</a>
+  </div>
+}

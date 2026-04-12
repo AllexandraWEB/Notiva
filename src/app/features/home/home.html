@@ -1,1 +1,44 @@
-<p>home works!</p>
+<section class="home-shell">
+  <div class="home-grid">
+    <div class="home-copy">
+      <p class="home-eyebrow">WELCOME TO NOTIVA</p>
+      <h1 class="home-title">Notiva</h1>
+      <p class="home-subtitle">
+        Capture ideas, organize notebooks, and keep your notes beautifully structured.
+      </p>
+
+      <div class="home-actions">
+        <a routerLink="/" class="home-button home-button--primary">Explore notes</a>
+
+        @if (authStore.isAuthenticated()) {
+          <a routerLink="/notebooks" class="home-button home-button--secondary">Open notebooks</a>
+        } @else {
+          <a routerLink="/auth/login" class="home-button home-button--secondary">Sign in</a>
+        }
+      </div>
+    </div>
+
+    <div class="home-visual" aria-hidden="true">
+      <div class="home-dot-grid"></div>
+
+      <div class="floating-card floating-card--1 card-rose">
+        <div class="card-line card-line--full"></div>
+        <div class="card-line card-line--mid"></div>
+        <span class="card-label">Ideas</span>
+      </div>
+
+      <div class="floating-card floating-card--2 card-mint">
+        <div class="card-line card-line--full"></div>
+        <div class="card-line card-line--full"></div>
+        <div class="card-line card-line--short"></div>
+        <span class="card-label">Personal</span>
+      </div>
+
+      <div class="floating-card floating-card--3 card-sand">
+        <div class="card-line card-line--full"></div>
+        <div class="card-line card-line--mid"></div>
+        <span class="card-label">Work</span>
+      </div>
+    </div>
+  </div>
+</section>

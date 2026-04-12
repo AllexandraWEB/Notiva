@@ -7,8 +7,7 @@
   width: 220px;
   min-width: 220px;
   height: 100vh;
-  background: #ffffff;
-  border-right: 1px solid #f0f0f0;
+  background: #fafafa;
   display: flex;
   flex-direction: column;
   padding: 24px 14px 20px;
@@ -75,6 +74,34 @@
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.4;
+}
+
+.add-note-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  background: #111;
+  color: #fff;
+  padding: 11px 14px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.12s ease, opacity 0.12s ease;
+  margin: 2px 0 12px;
+}
+
+.add-note-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.add-note-btn__plus {
+  font-size: 1rem;
+  line-height: 1;
 }
 
 /* ── Navigation ── */
