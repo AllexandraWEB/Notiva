@@ -204,3 +204,21 @@
     min-height: 22rem;
   }
 }
+
+@media (max-width: 767px) {
+  .home-shell {
+    margin: 0.5rem;
+    border-radius: 1.25rem;
+    min-height: calc(100dvh - 56px - 1rem);
+  }
+
+  .home-grid {
+    padding: 1.5rem 1.25rem;
+    min-height: calc(100dvh - 56px - 1rem);
+    gap: 1.5rem;
+  }
+
+  .home-visual {
+    min-height: 14rem;
+  }
+}

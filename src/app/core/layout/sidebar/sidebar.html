@@ -1,4 +1,33 @@
-<aside class="sidebar">
+<!-- Mobile Header -->
+<header class="mobile-header">
+  <span class="mobile-logo">Notiva</span>
+  <button
+    class="hamburger"
+    type="button"
+    (click)="toggleMobile()"
+    [attr.aria-expanded]="isMobileOpen()"
+    aria-label="Toggle navigation menu"
+  >
+    @if (isMobileOpen()) {
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
+    } @else {
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="3" y1="6" x2="21" y2="6" />
+      <line x1="3" y1="12" x2="21" y2="12" />
+      <line x1="3" y1="18" x2="21" y2="18" />
+    </svg>
+    }
+  </button>
+</header>
+
+@if (isMobileOpen()) {
+<div class="overlay" (click)="closeMobile()"></div>
+}
+
+<aside class="sidebar" [class.sidebar--open]="isMobileOpen()">
   <!-- User Profile -->
   <div class="profile">
     <div class="avatar">
@@ -199,38 +228,6 @@
               <rect x="14" y="14" width="7" height="7" rx="1" />
             </svg>
             Projects
-          </a>
-        </li>
-      </ul>
-    </div>
-    }
-
-    <!-- SETTINGS -->
-    @if(authStore.isAuthenticated()) {
-    <div class="nav-section">
-      <span class="section-label">SETTINGS</span>
-      <ul class="nav-list">
-        <li>
-          <a
-            routerLink="/settings"
-            routerLinkActive="nav-item--active"
-            class="nav-item"
-          >
-            <svg
-              class="nav-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.75"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path
-                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-              />
-              <circle cx="12" cy="12" r="3" />
-            </svg>
-            Settings
           </a>
         </li>
       </ul>
