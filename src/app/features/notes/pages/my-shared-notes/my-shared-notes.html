@@ -1,11 +1,11 @@
 <div class="white-container">
   <div class="mb-6">
     <p class="span-text">
-      Favorites
+      Shared notes
     </p>
-    <h1 class="title-h1">Saved notes</h1>
+    <h1 class="title-h1">Your shared notes</h1>
     <p class="mt-2 text-sm text-[#666]">
-      Notes you heart will appear here for quick access.
+      Notes saved as <strong>Public</strong> are visible on the public shared page.
     </p>
   </div>
 
@@ -17,19 +17,19 @@
 
   @if (notesStore.loading()) {
     <div class="loader">
-      Loading favorites from Supabase...
+      Loading your shared notes from Supabase...
     </div>
   } @else if (notes().length > 0) {
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
       @for (note of notes(); track note.id) {
         <app-note-template [note]="note" />
       }
     </div>
   } @else {
     <div class="empty-container">
-      <h2 class="text-lg font-semibold text-[#111]">No favorite notes yet</h2>
+      <h2 class="text-lg font-semibold text-[#111]">No shared notes yet</h2>
       <p class="mt-2 text-sm text-[#666]">
-        Click the heart icon on any note to save it here.
+        Use the sidebar button to add a note and choose <strong>Public</strong> to share it.
       </p>
     </div>
   }

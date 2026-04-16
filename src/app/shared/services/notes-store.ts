@@ -272,10 +272,6 @@ export class NotesStore {
       tagBg: palette.tagBg,
       tagColor: palette.tagColor,
       title: note.title,
-      subtitle:
-        note.visibility === "public"
-          ? "Visible in All notes"
-          : "Visible only in Notebooks",
       body: note.body,
       visibility: note.visibility,
       createdAt: note.created_at,

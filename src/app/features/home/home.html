@@ -11,7 +11,7 @@
         <a routerLink="/" class="home-button home-button--primary">Explore notes</a>
 
         @if (authStore.isAuthenticated()) {
-          <a routerLink="/notebooks" class="home-button home-button--secondary">Open notebooks</a>
+          <a routerLink="/projects" class="home-button home-button--secondary">Open projects</a>
         } @else {
           <a routerLink="/auth/login" class="home-button home-button--secondary">Sign in</a>
         }

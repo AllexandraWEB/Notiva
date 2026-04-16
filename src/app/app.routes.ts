@@ -59,6 +59,15 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'shared',
+        canActivate: [authGuard],
+        title: 'Shared Notes – Notiva',
+        loadComponent: () =>
+          import('./features/notes/pages/my-shared-notes/my-shared-notes').then(
+            (m) => m.MySharedNotes
+          ),
+      },
+      {
         path: 'projects/:projectId',
         canActivate: [authGuard],
         title: 'Project Details – Notiva',
