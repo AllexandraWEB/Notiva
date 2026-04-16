@@ -38,6 +38,8 @@ export const COLOR_OPTIONS: NoteColorOption[] = [
   },
 ];
 
+export const PROJECT_COLOR_OPTIONS: NoteColorOption[] = COLOR_OPTIONS.slice(0, 4);
+
 export const DEFAULT_CATEGORIES = [
   'Personal',
   'Work',

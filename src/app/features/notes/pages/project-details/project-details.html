@@ -1,0 +1,155 @@
+<div class="outer-layout">
+  @if (project(); as currentProject) {
+    <div class="mb-5 flex items-center justify-between gap-3">
+      <a routerLink="/projects" class="back-button">
+        Back to folders
+      </a>
+      <div class="flex gap-2">
+        <button
+          type="button"
+          class="edit-button"
+          (click)="startEdit()"
+        >
+          Edit folder
+        </button>
+        <button
+          type="button"
+          class="delete-button"
+          (click)="deleteProject()"
+        >
+          Delete folder
+        </button>
+      </div>
+    </div>
+
+    <header class="mb-6 rounded-2xl border border-neutral-300 bg-white p-5">
+      <div class="flex items-center gap-3">
+        <span class="inline-block h-4 w-4 rounded-full border border-black/10 bg-zinc-500"></span>
+        <h1 class="text-2xl font-semibold text-neutral-900 sm:text-3xl">{{ currentProject.name }}</h1>
+      </div>
+      @if (currentProject.tag) {
+        <p class="mt-2 text-sm text-neutral-600">Tag: #{{ currentProject.tag }}</p>
+      }
+      <p class="mt-2 text-sm text-neutral-600">{{ folderNotes().length }} notes in this folder</p>
+    </header>
+
+    @if (isEditing()) {
+      <div
+        class="edit-modal-overlay"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Edit folder"
+        (click)="cancelEdit()"
+      >
+        <section class="edit-modal" (click)="$event.stopPropagation()">
+          <header class="mb-4">
+            <h2 class="text-lg font-semibold text-neutral-900">Edit folder</h2>
+            <p class="mt-1 text-sm text-neutral-600">Update the folder name and optional tag.</p>
+          </header>
+
+          <div class="grid gap-3 sm:grid-cols-[1.3fr_0.9fr]">
+            <label class="flex flex-col gap-1.5">
+              <span class="span-tag">Folder name</span>
+              <input
+                type="text"
+                [(ngModel)]="editModel.name"
+                [ngModelOptions]="{ standalone: true }"
+                class="input"
+              />
+            </label>
+
+            <label class="flex flex-col gap-1.5">
+              <span class="span-tag">Tag</span>
+              <input
+                type="text"
+                [(ngModel)]="editModel.tag"
+                [ngModelOptions]="{ standalone: true }"
+                class="input"
+              />
+            </label>
+          </div>
+
+          <div class="mt-5 flex justify-end gap-2">
+            <button
+              type="button"
+              class="h-10 rounded-lg border border-neutral-300 px-3 text-xs font-semibold text-neutral-700 transition hover:bg-neutral-100"
+              (click)="cancelEdit()"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="regular-button"
+              (click)="saveEdit()"
+            >
+              Save
+            </button>
+          </div>
+        </section>
+      </div>
+    }
+
+    <section class="mb-5 rounded-2xl border border-neutral-300 bg-white p-4">
+      <div class="grid gap-2 sm:grid-cols-[1fr_auto] sm:items-end">
+        <label class="flex flex-col gap-1.5">
+          <span class="text-[0.72rem] font-semibold uppercase tracking-[0.12em] text-neutral-500">Add note</span>
+          <select
+            [ngModel]="selectedNoteId()"
+            (ngModelChange)="selectedNoteId.set($event)"
+            [ngModelOptions]="{ standalone: true }"
+            class="h-10 rounded-lg border border-neutral-300 bg-white px-2.5 text-sm text-neutral-900 outline-none focus:border-neutral-500 appearance-none"
+          >
+            <option [ngValue]="null">Select a note...</option>
+            @for (note of availableNotes(); track note.id) {
+              <option [ngValue]="note.id">{{ note.title }}</option>
+            }
+          </select>
+        </label>
+
+        <button
+          type="button"
+          class="regular-button"
+          (click)="addSelectedNote()"
+        >
+          Add note
+        </button>
+      </div>
+    </section>
+
+    @if (projectsStore.error()) {
+      <div class="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+        {{ projectsStore.error() }}
+      </div>
+    }
+
+    @if (folderNotes().length > 0) {
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        @for (note of folderNotes(); track note.id) {
+          <div class="space-y-2">
+            <button
+              type="button"
+              class="rounded-lg border border-neutral-300 bg-white px-3 py-1 text-xs font-semibold text-neutral-700 transition hover:bg-neutral-100"
+              (click)="removeNote(note.id)"
+            >
+              Remove selected note
+            </button>
+            <app-note-template [note]="note" />
+          </div>
+        }
+      </div>
+    } @else {
+      <section class="rounded-2xl border border-dashed border-neutral-300 bg-white px-6 py-10 text-center">
+        <h2 class="text-xl font-semibold text-neutral-900">Folder is empty</h2>
+        <p class="mt-2 text-sm text-neutral-600">Use Add note to put notes in this folder.</p>
+      </section>
+    }
+  } @else {
+    <section class="rounded-2xl border border-dashed border-neutral-300 bg-white px-6 py-10 text-center">
+      <h2 class="text-xl font-semibold text-neutral-900">Folder not found</h2>
+      <p class="mt-2 text-sm text-neutral-600">This folder may have been deleted.</p>
+      <a routerLink="/projects" class="mt-4 inline-flex rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm font-semibold text-neutral-700 transition hover:bg-neutral-100">
+        Back to folders
+      </a>
+    </section>
+  }
+</div>

@@ -1,0 +1,27 @@
+@reference "tailwindcss";
+
+@layer components {
+    .white-container {
+        @apply m-3 min-h-[calc(100dvh-1.5rem)] rounded-lg border border-neutral-200 bg-white px-8 py-7
+    }
+
+    .title-h1 {
+        @apply mt-1 text-2xl font-semibold text-[#111]
+    }
+
+    .span-text {
+        @apply text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-[#999]
+    }
+
+    .loader {
+        @apply rounded-2xl border border-dashed border-neutral-200 bg-neutral-50 px-6 py-10 text-center text-sm text-[#666];
+    }
+
+    .empty-container {
+        @apply rounded-2xl border border-dashed border-neutral-200 bg-neutral-50 px-6 py-10 text-center
+    }
+
+    .button-style {
+        @apply rounded-full border px-4 py-2 text-sm font-medium transition cursor-pointer
+    }
+}

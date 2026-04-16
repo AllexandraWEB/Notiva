@@ -32,15 +32,6 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'notes',
-        canActivate: [authGuard],
-        title: 'My Notes – Notiva',
-        loadComponent: () =>
-          import('./features/notes/pages/my-notes/my-notes').then(
-            (m) => m.MyNotes
-          ),
-      },
-      {
         path: 'favorites',
         canActivate: [authGuard],
         title: 'Favorites – Notiva',
@@ -48,13 +39,6 @@ export const routes: Routes = [
           import('./features/notes/pages/favorites/favorites').then(
             (m) => m.Favorites
           ),
-      },
-      {
-        path: 'recent',
-        canActivate: [authGuard],
-        title: 'Recent Notes – Notiva',
-        loadComponent: () =>
-          import('./features/notes/pages/recent/recent').then((m) => m.Recent),
       },
       {
         path: 'categories',
@@ -72,6 +56,24 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/notes/pages/notebooks/notebooks').then(
             (m) => m.Notebooks
+          ),
+      },
+      {
+        path: 'projects/:projectId',
+        canActivate: [authGuard],
+        title: 'Project Details – Notiva',
+        loadComponent: () =>
+          import('./features/notes/pages/project-details/project-details').then(
+            (m) => m.ProjectDetails
+          ),
+      },
+      {
+        path: 'projects',
+        canActivate: [authGuard],
+        title: 'Projects – Notiva',
+        loadComponent: () =>
+          import('./features/notes/pages/projects/projects').then(
+            (m) => m.Projects
           ),
       },
     ],
