@@ -13,25 +13,50 @@ export class AuthStore {
   private readonly _user = signal<AuthUser | null>(null);
   private readonly _loading = signal(false);
   private readonly _error = signal<string | null>(null);
+  private readonly _initialized = signal(false);
 
   readonly user = this._user.asReadonly();
   readonly loading = this._loading.asReadonly();
   readonly error = this._error.asReadonly();
+  readonly initialized = this._initialized.asReadonly();
   readonly isAuthenticated = computed(() => this._user() !== null);
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
       this.initAuthState();
+    } else {
+      this._initialized.set(true);
     }
   }
 
   private async initAuthState(): Promise<void> {
-    const { data } = await this.supabase.getSession();
-    if (data.session?.user) {
-      this._user.set(this.mapUser(data.session.user));
+    try {
+      const { data } = await this.supabase.getSession();
+      if (data.session?.user) {
+        this._user.set(this.mapUser(data.session.user));
+      }
+      this.supabase.onAuthStateChange((_, session) => {
+        this._user.set(session?.user ? this.mapUser(session.user) : null);
+      });
+    } finally {
+      this._initialized.set(true);
     }
-    this.supabase.onAuthStateChange((_, session) => {
-      this._user.set(session?.user ? this.mapUser(session.user) : null);
+  }
+
+  async waitForInitialization(): Promise<void> {
+    if (this._initialized()) {
+      return;
+    }
+
+    await new Promise<void>((resolve) => {
+      const check = () => {
+        if (this._initialized()) {
+          resolve();
+          return;
+        }
+        setTimeout(check, 10);
+      };
+      check();
     });
   }
 

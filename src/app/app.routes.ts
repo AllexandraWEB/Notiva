@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './core/auth/auth-guard';
+import { authGuard, guestGuard, guestMatchGuard } from './core/auth/auth-guard';
 
 export const routes: Routes = [
   {
@@ -89,6 +89,8 @@ export const routes: Routes = [
   },
   {
     path: 'auth',
+    canMatch: [guestMatchGuard],
+    canActivate: [guestGuard],
     loadChildren: () =>
       import('./core/auth/auth.routes').then((m) => m.authRoutes),
   },
