@@ -120,6 +120,10 @@
     {{ note.body }}
   </p>
   }
+
+  <div class="mt-auto pt-1 text-[0.74rem] font-medium text-[#777]">
+    Created {{ note.createdAt | relativeDate }}
+  </div>
 </div>
 
 @if (isDeleteDialogOpen()) {

@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ProjectCountLabelPipe } from '../../pipes/project-count-label.pipe';
 
 @Component({
   selector: 'app-project-folder-card',
-  imports: [],
+  imports: [ProjectCountLabelPipe],
   templateUrl: './project-folder-card.html',
   styleUrl: './project-folder-card.css',
 })
