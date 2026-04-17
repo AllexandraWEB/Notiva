@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { radixMagnifyingGlass } from '@ng-icons/radix-icons';
@@ -24,4 +24,11 @@ import {
     }),
   ],
 })
-export class SharedNotesHeader {}
+export class SharedNotesHeader {
+  @Input() searchTerm = '';
+  @Output() searchTermChange = new EventEmitter<string>();
+
+  protected updateSearchTerm(value: string): void {
+    this.searchTermChange.emit(value);
+  }
+}
