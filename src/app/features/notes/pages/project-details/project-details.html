@@ -1,20 +1,20 @@
-<div class="outer-layout">
+<div class="m-3 min-h-[calc(100dvh-1.5rem)] rounded-lg border border-neutral-200 bg-white px-5 py-6 sm:px-8">
   @if (project(); as currentProject) {
     <div class="mb-5 flex items-center justify-between gap-3">
-      <a routerLink="/projects" class="back-button">
+      <a routerLink="/projects" class="rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm font-semibold text-neutral-700 transition hover:bg-neutral-100">
         Back to folders
       </a>
       <div class="flex gap-2">
         <button
           type="button"
-          class="edit-button"
+          class="rounded-lg border border-neutral-300 bg-white px-3 py-2 text-sm font-semibold text-neutral-700 transition hover:bg-neutral-100"
           (click)="startEdit()"
         >
           Edit folder
         </button>
         <button
           type="button"
-          class="delete-button"
+          class="rounded-lg border border-red-200 bg-white px-3 py-2 text-sm font-semibold text-red-700 transition hover:bg-red-50"
           (click)="deleteProject()"
         >
           Delete folder
@@ -35,13 +35,13 @@
 
     @if (isEditing()) {
       <div
-        class="edit-modal-overlay"
+        class="fixed inset-0 z-40 flex items-center justify-center bg-black/35 p-4"
         role="dialog"
         aria-modal="true"
         aria-label="Edit folder"
         (click)="cancelEdit()"
       >
-        <section class="edit-modal" (click)="$event.stopPropagation()">
+        <section class="w-full max-w-2xl rounded-2xl border border-neutral-300 bg-white p-5 shadow-xl sm:p-6" (click)="$event.stopPropagation()">
           <header class="mb-4">
             <h2 class="text-lg font-semibold text-neutral-900">Edit folder</h2>
             <p class="mt-1 text-sm text-neutral-600">Update the folder name and optional tag.</p>
@@ -49,22 +49,22 @@
 
           <div class="grid gap-3 sm:grid-cols-[1.3fr_0.9fr]">
             <label class="flex flex-col gap-1.5">
-              <span class="span-tag">Folder name</span>
+              <span class="text-[0.72rem] font-semibold uppercase tracking-[0.12em] text-neutral-500">Folder name</span>
               <input
                 type="text"
                 [(ngModel)]="editModel.name"
                 [ngModelOptions]="{ standalone: true }"
-                class="input"
+                class="h-10 rounded-lg border border-neutral-300 bg-white px-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-500"
               />
             </label>
 
             <label class="flex flex-col gap-1.5">
-              <span class="span-tag">Tag</span>
+              <span class="text-[0.72rem] font-semibold uppercase tracking-[0.12em] text-neutral-500">Tag</span>
               <input
                 type="text"
                 [(ngModel)]="editModel.tag"
                 [ngModelOptions]="{ standalone: true }"
-                class="input"
+                class="h-10 rounded-lg border border-neutral-300 bg-white px-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-500"
               />
             </label>
           </div>
@@ -79,7 +79,7 @@
             </button>
             <button
               type="button"
-              class="regular-button"
+              class="h-10 rounded-lg bg-neutral-900 px-4 text-sm font-semibold text-white transition hover:bg-neutral-800"
               (click)="saveEdit()"
             >
               Save
@@ -108,7 +108,7 @@
 
         <button
           type="button"
-          class="regular-button"
+          class="h-10 rounded-lg bg-neutral-900 px-4 text-sm font-semibold text-white transition hover:bg-neutral-800"
           (click)="addSelectedNote()"
         >
           Add note
