@@ -17,7 +17,6 @@
   gap: 4px;
 }
 
-/* ── Profile ── */
 .profile {
   display: flex;
   align-items: center;
@@ -104,7 +103,6 @@
   line-height: 1;
 }
 
-/* ── Navigation ── */
 .nav {
   display: flex;
   flex-direction: column;
@@ -178,7 +176,6 @@
   opacity: 1;
 }
 
-/* ── Sign out ── */
 .sign-out {
   margin-top: auto;
   padding-top: 12px;
@@ -192,4 +189,89 @@
 .sign-out-btn:hover {
   color: #c0392b;
   background: #fff5f5;
+}
+
+.mobile-header {
+  display: none;
+}
+
+.hamburger {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  :host {
+    width: 0;
+    min-width: 0;
+    flex-shrink: 0;
+  }
+
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    background: #fafafa;
+    border-bottom: 1px solid #f2f2f2;
+    padding: 0 16px;
+    z-index: 100;
+  }
+
+  .mobile-logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111;
+    letter-spacing: -0.03em;
+  }
+
+  .hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 8px;
+    color: #111;
+    transition: background 0.12s ease;
+    padding: 0;
+  }
+
+  .hamburger:hover {
+    background: #f0f0f0;
+  }
+
+  .hamburger svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 150;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px;
+    height: 100vh;
+    transform: translateX(100%);
+    transition: transform 0.28s ease;
+    z-index: 200;
+    box-shadow: -4px 0 32px rgba(0, 0, 0, 0.14);
+  }
+
+  .sidebar--open {
+    transform: translateX(0);
+  }
 }

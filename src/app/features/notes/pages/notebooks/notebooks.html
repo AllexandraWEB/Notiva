@@ -1,9 +1,9 @@
-<div class="m-3 min-h-[calc(100dvh-1.5rem)] rounded-lg border border-neutral-200 bg-white px-8 py-7">
+<div class="white-container">
   <div class="mb-6">
-    <p class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-[#999]">
+    <p class="span-text">
       Private notebooks
     </p>
-    <h1 class="mt-1 text-2xl font-semibold text-[#111]">Your private notes</h1>
+    <h1 class="title-h1">Your private notes</h1>
     <p class="mt-2 text-sm text-[#666]">
       Notes saved as <strong>Private</strong> stay here and do not appear on the public All notes page.
     </p>
@@ -16,7 +16,7 @@
   }
 
   @if (notesStore.loading()) {
-    <div class="rounded-2xl border border-dashed border-neutral-200 bg-neutral-50 px-6 py-10 text-center text-sm text-[#666]">
+    <div class="loader">
       Loading your notebook notes from Supabase...
     </div>
   } @else if (groups().length > 0) {
@@ -31,7 +31,7 @@
       </section>
     }
   } @else {
-    <div class="rounded-2xl border border-dashed border-neutral-200 bg-neutral-50 px-6 py-10 text-center">
+    <div class="empty-container">
       <h2 class="text-lg font-semibold text-[#111]">No private notes yet</h2>
       <p class="mt-2 text-sm text-[#666]">
         Use the sidebar button to add a note and choose <strong>Private</strong> to keep it only in your notebooks.

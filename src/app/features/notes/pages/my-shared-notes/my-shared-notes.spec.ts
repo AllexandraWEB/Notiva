@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { Recent } from "./recent";
+import { MySharedNotes } from "./my-shared-notes";
 
-describe("Recent", () => {
-  let component: Recent;
-  let fixture: ComponentFixture<Recent>;
+describe("MySharedNotes", () => {
+  let component: MySharedNotes;
+  let fixture: ComponentFixture<MySharedNotes>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Recent],
+      imports: [MySharedNotes],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Recent);
+    fixture = TestBed.createComponent(MySharedNotes);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

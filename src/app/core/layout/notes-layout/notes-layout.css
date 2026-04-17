@@ -14,3 +14,16 @@
   min-width: 0;
   overflow-y: auto;
 }
+
+@media (max-width: 767px) {
+  .notes-layout {
+    display: block;
+  }
+
+  .notes-layout__content {
+    padding-top: 56px;
+    overflow-y: unset;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}

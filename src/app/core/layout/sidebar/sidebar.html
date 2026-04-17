@@ -1,4 +1,33 @@
-<aside class="sidebar">
+<!-- Mobile Header -->
+<header class="mobile-header">
+  <span class="mobile-logo">Notiva</span>
+  <button
+    class="hamburger"
+    type="button"
+    (click)="toggleMobile()"
+    [attr.aria-expanded]="isMobileOpen()"
+    aria-label="Toggle navigation menu"
+  >
+    @if (isMobileOpen()) {
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
+    } @else {
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="3" y1="6" x2="21" y2="6" />
+      <line x1="3" y1="12" x2="21" y2="12" />
+      <line x1="3" y1="18" x2="21" y2="18" />
+    </svg>
+    }
+  </button>
+</header>
+
+@if (isMobileOpen()) {
+<div class="overlay" (click)="closeMobile()"></div>
+}
+
+<aside class="sidebar" [class.sidebar--open]="isMobileOpen()">
   <!-- User Profile -->
   <div class="profile">
     <div class="avatar">
@@ -22,10 +51,10 @@
   </div>
 
   @if (authStore.isAuthenticated()) {
-    <button class="add-note-btn" type="button" (click)="openCreateForm()">
-      <span class="add-note-btn__plus">+</span>
-      Add note
-    </button>
+  <button class="add-note-btn" type="button" (click)="openCreateForm()">
+    <span class="add-note-btn__plus">+</span>
+    Add note
+  </button>
   }
 
   <!-- Navigation -->
@@ -50,9 +79,8 @@
               stroke-linecap="round"
               stroke-linejoin="round"
             >
-              <path
-                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-              />
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
             </svg>
             Home
           </a>
@@ -106,28 +134,7 @@
         </li>
         <li>
           <a
-            routerLink="/recent"
-            routerLinkActive="nav-item--active"
-            class="nav-item"
-          >
-            <svg
-              class="nav-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.75"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <circle cx="12" cy="12" r="10" />
-              <polyline points="12 6 12 12 16 14" />
-            </svg>
-            Recent notes
-          </a>
-        </li>
-        <li>
-          <a
-            routerLink="/tags"
+            routerLink="/categories"
             routerLinkActive="nav-item--active"
             class="nav-item"
           >
@@ -144,7 +151,7 @@
                 d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"
               />
             </svg>
-            Tags
+            Categories
           </a>
         </li>
         }
@@ -175,33 +182,10 @@
                 d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
               />
             </svg>
-            Notebooks
+            Private Notes
           </a>
         </li>
-        <li>
-          <a
-            routerLink="/notes"
-            routerLinkActive="nav-item--active"
-            class="nav-item"
-          >
-            <svg
-              class="nav-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.75"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <rect x="3" y="3" width="7" height="7" rx="1" />
-              <rect x="14" y="3" width="7" height="7" rx="1" />
-              <rect x="3" y="14" width="7" height="7" rx="1" />
-              <rect x="14" y="14" width="7" height="7" rx="1" />
-            </svg>
-            Projects
-          </a>
-        </li>
-        <li>
+           <li>
           <a
             routerLink="/shared"
             routerLinkActive="nav-item--active"
@@ -220,21 +204,12 @@
                 d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
               />
             </svg>
-            Shared
+            Shared Notes
           </a>
         </li>
-      </ul>
-    </div>
-    }
-
-    <!-- SETTINGS -->
-    @if(authStore.isAuthenticated()) {
-    <div class="nav-section">
-      <span class="section-label">SETTINGS</span>
-      <ul class="nav-list">
         <li>
           <a
-            routerLink="/settings"
+            routerLink="/projects"
             routerLinkActive="nav-item--active"
             class="nav-item"
           >
@@ -247,12 +222,12 @@
               stroke-linecap="round"
               stroke-linejoin="round"
             >
-              <path
-                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-              />
-              <circle cx="12" cy="12" r="3" />
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
             </svg>
-            Settings
+            Projects
           </a>
         </li>
       </ul>

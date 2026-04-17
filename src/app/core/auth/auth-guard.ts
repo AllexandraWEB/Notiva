@@ -1,14 +1,42 @@
 import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { CanActivateFn, CanMatchFn, Router } from '@angular/router';
 import { AuthStore } from './auth-store';
 
-export const authGuard: CanActivateFn = () => {
+export const authGuard: CanActivateFn = async () => {
   const authStore = inject(AuthStore);
   const router = inject(Router);
+
+  await authStore.waitForInitialization();
 
   if (authStore.isAuthenticated()) {
     return true;
   }
 
-  return router.createUrlTree(['/']);
+  return router.createUrlTree(['/auth/login']);
+};
+
+export const guestGuard: CanActivateFn = async () => {
+  const authStore = inject(AuthStore);
+  const router = inject(Router);
+
+  await authStore.waitForInitialization();
+
+  if (!authStore.isAuthenticated()) {
+    return true;
+  }
+
+  return router.createUrlTree(['/home']);
+};
+
+export const guestMatchGuard: CanMatchFn = async () => {
+  const authStore = inject(AuthStore);
+  const router = inject(Router);
+
+  await authStore.waitForInitialization();
+
+  if (!authStore.isAuthenticated()) {
+    return true;
+  }
+
+  return router.createUrlTree(['/home']);
 };

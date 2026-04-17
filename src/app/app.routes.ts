@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './core/auth/auth-guard';
+import { authGuard, guestGuard, guestMatchGuard } from './core/auth/auth-guard';
 
 export const routes: Routes = [
   {
@@ -32,15 +32,6 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'notes',
-        canActivate: [authGuard],
-        title: 'My Notes – Notiva',
-        loadComponent: () =>
-          import('./features/notes/pages/my-notes/my-notes').then(
-            (m) => m.MyNotes
-          ),
-      },
-      {
         path: 'favorites',
         canActivate: [authGuard],
         title: 'Favorites – Notiva',
@@ -50,11 +41,13 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'recent',
+        path: 'categories',
         canActivate: [authGuard],
-        title: 'Recent Notes – Notiva',
+        title: 'Categories – Notiva',
         loadComponent: () =>
-          import('./features/notes/pages/recent/recent').then((m) => m.Recent),
+          import('./features/notes/pages/categories/categories').then(
+            (m) => m.Categories
+          ),
       },
       {
         path: 'notebooks',
@@ -65,10 +58,39 @@ export const routes: Routes = [
             (m) => m.Notebooks
           ),
       },
+      {
+        path: 'shared',
+        canActivate: [authGuard],
+        title: 'Shared Notes – Notiva',
+        loadComponent: () =>
+          import('./features/notes/pages/my-shared-notes/my-shared-notes').then(
+            (m) => m.MySharedNotes
+          ),
+      },
+      {
+        path: 'projects/:projectId',
+        canActivate: [authGuard],
+        title: 'Project Details – Notiva',
+        loadComponent: () =>
+          import('./features/notes/pages/project-details/project-details').then(
+            (m) => m.ProjectDetails
+          ),
+      },
+      {
+        path: 'projects',
+        canActivate: [authGuard],
+        title: 'Projects – Notiva',
+        loadComponent: () =>
+          import('./features/notes/pages/projects/projects').then(
+            (m) => m.Projects
+          ),
+      },
     ],
   },
   {
     path: 'auth',
+    canMatch: [guestMatchGuard],
+    canActivate: [guestGuard],
     loadChildren: () =>
       import('./core/auth/auth.routes').then((m) => m.authRoutes),
   },
