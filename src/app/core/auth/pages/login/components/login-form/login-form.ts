@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
-import { AuthStore } from '../../../../auth-store';
+import { AuthStore } from '../../../../services/auth-store';
 
 @Component({
   selector: 'app-login-form',

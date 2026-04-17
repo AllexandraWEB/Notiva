@@ -1,6 +1,6 @@
 import { Component, Input, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthStore } from '../../../core/auth/auth-store';
+import { AuthStore } from '../../../core/auth/services/auth-store';
 import { PublicNote } from '../../../core/models/core.models';
 import { NotesStore } from '../../services/notes-store';
 

@@ -1,8 +1,8 @@
 import { Injectable, PLATFORM_ID, computed, inject, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
-import { SupabaseService } from '../services/supabase.service';
-import { AuthUser } from './models/auth.model';
+import { SupabaseService } from '../../services/supabase.service';
+import { AuthUser } from '../models/auth.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthStore {

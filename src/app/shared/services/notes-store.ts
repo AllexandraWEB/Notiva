@@ -1,5 +1,5 @@
 import { Injectable, computed, effect, inject, signal } from "@angular/core";
-import { AuthStore } from "../../core/auth/auth-store";
+import { AuthStore } from '../../core/auth/services/auth-store';
 import { PublicNote } from "../../core/models/core.models";
 import { SupabaseService } from "../../core/services/supabase.service";
 import { CreateNotePayload } from "../models/note-payload.model";

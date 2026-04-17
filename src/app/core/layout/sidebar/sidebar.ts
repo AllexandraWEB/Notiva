@@ -1,9 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { filter } from 'rxjs';
+import { distinctUntilChanged, filter, map } from 'rxjs';
 import { NotesStore } from '../../../shared/services/notes-store';
-import { AuthStore } from '../../auth/auth-store';
+import { AuthStore } from '../../auth/services/auth-store';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,7 +20,9 @@ export class Sidebar {
   constructor() {
     this.router.events
       .pipe(
-        filter(e => e instanceof NavigationEnd),
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+        map((event) => event.urlAfterRedirects),
+        distinctUntilChanged(),
         takeUntilDestroyed()
       )
       .subscribe(() => this.isMobileOpen.set(false));
