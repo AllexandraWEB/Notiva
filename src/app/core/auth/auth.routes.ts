@@ -7,6 +7,12 @@ export const authRoutes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'callback',
+    loadComponent: () =>
+      import('./pages/callback/callback').then((m) => m.AuthCallback),
+    title: 'Signing in – Notiva',
+  },
+  {
     path: 'login',
     loadComponent: () =>
       import('./pages/login/login').then((m) => m.Login),

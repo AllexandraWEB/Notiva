@@ -2,7 +2,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { AuthStore } from '../../../../core/auth/auth-store';
+import { AuthStore } from '../../../../core/auth/services/auth-store';
 import { PublicNote } from '../../../../core/models/core.models';
 import { NoteTemplate } from '../../../../shared/components/note-template/note-template';
 import { NotesStore } from '../../../../shared/services/notes-store';

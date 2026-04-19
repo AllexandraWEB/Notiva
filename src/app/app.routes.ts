@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authGuard, guestGuard, guestMatchGuard } from './core/auth/auth-guard';
+import { authGuard, guestGuard, guestMatchGuard } from './core/auth/guards/auth-guard';
 
 export const routes: Routes = [
   {
@@ -96,7 +96,9 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
+    title: '404 – Notiva',
+    loadComponent: () =>
+      import('./features/not-found/not-found').then((m) => m.NotFound),
   },
 ];
 

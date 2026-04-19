@@ -1,12 +1,13 @@
 import { Component, Input, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthStore } from '../../../core/auth/auth-store';
+import { AuthStore } from '../../../core/auth/services/auth-store';
 import { PublicNote } from '../../../core/models/core.models';
+import { RelativeDatePipe } from '../../pipes/relative-date.pipe';
 import { NotesStore } from '../../services/notes-store';
 
 @Component({
   selector: 'app-note-template',
-  imports: [],
+  imports: [RelativeDatePipe],
   templateUrl: './note-template.html',
   styleUrl: './note-template.css',
 })

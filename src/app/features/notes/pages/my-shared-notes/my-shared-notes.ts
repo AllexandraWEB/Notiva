@@ -1,5 +1,5 @@
 import { Component, computed, inject } from "@angular/core";
-import { AuthStore } from "../../../../core/auth/auth-store";
+import { AuthStore } from '../../../../core/auth/services/auth-store';
 import { NoteTemplate } from "../../../../shared/components/note-template/note-template";
 import { NotesStore } from "../../../../shared/services/notes-store";
 

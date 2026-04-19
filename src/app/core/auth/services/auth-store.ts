@@ -1,8 +1,9 @@
 import { Injectable, PLATFORM_ID, computed, inject, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
-import { SupabaseService } from '../services/supabase.service';
-import { AuthUser } from './models/auth.model';
+import { User } from '@supabase/supabase-js';
+import { SupabaseService } from '../../services/supabase.service';
+import { AuthUser } from '../models/auth.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthStore {
@@ -60,10 +61,10 @@ export class AuthStore {
     });
   }
 
-  private mapUser(user: any): AuthUser {
+  private mapUser(user: User): AuthUser {
     return {
       id: user.id,
-      email: user.email,
+      email: user.email ?? '',
       name: user.user_metadata?.['name'],
       avatarUrl: user.user_metadata?.['avatar_url'],
     };

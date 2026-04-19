@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
-import { AuthStore } from '../../../../auth-store';
+import { AuthStore } from '../../../../services/auth-store';
 
 function passwordMatch(control: AbstractControl): ValidationErrors | null {
   const password = control.get('password')?.value;

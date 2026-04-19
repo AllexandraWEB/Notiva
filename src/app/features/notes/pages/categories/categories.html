@@ -3,30 +3,46 @@
     <span class="span-text"> Categories </span>
     <h1 class="title-h1">Browse by category</h1>
     <p class="mt-2 text-sm text-[#666]">
-      Pick a category to list notes that match your selection.
+      Type a category name to show all notes that belong to it.
     </p>
   </div>
 
+  <label class="mb-4 flex max-w-md flex-col gap-1.5">
+    <span class="text-[0.72rem] font-semibold uppercase tracking-[0.12em] text-neutral-500">
+      Search categories
+    </span>
+    <input
+      type="search"
+      [value]="categorySearchTerm()"
+      (input)="updateSearchTerm($any($event.target).value)"
+      placeholder="Type a category name"
+      class="h-11 rounded-xl border border-neutral-300 bg-white px-3 text-sm text-neutral-900 outline-none transition focus:border-neutral-500"
+    />
+  </label>
+
   <div class="mb-6 flex flex-wrap gap-2">
-    @for (category of categories; track category) {
-    <button
-      type="button"
-      class="button-style"
-      [class.border-black]="selectedCategory() === category"
-      [class.bg-black]="selectedCategory() === category"
-      [class.text-white]="selectedCategory() === category"
-      [class.border-neutral-200]="selectedCategory() !== category"
-      [class.text-[#555]]="selectedCategory() !== category"
-      (click)="selectCategory(category)"
-    >
+    @for (category of categories() | categorySearch: categorySearchTerm(); track category) {
+    <span class="rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1 text-sm text-neutral-700">
       {{ category }}
-    </button>
+    </span>
     }
   </div>
+
+  @if ((categories() | categorySearch: categorySearchTerm()).length === 0) {
+  <div class="mb-6 rounded-2xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm text-neutral-600">
+    No categories match "{{ categorySearchTerm() }}".
+  </div>
+  }
 
   @if (notesStore.loading()) {
   <div class="loader">Loading notes from Supabase...</div>
   } @else if (filteredNotes().length > 0) {
+  <div class="mb-6 text-sm text-neutral-600">
+    Showing {{ filteredNotes().length }} note(s)
+    @if (categorySearchTerm().trim()) {
+      <span>for categories matching "{{ categorySearchTerm().trim() }}"</span>
+    }
+  </div>
   <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
     @for (note of filteredNotes(); track note.id) {
     <app-note-template [note]="note" />
@@ -37,10 +53,10 @@
     class="empty-container"
   >
     <h2 class="text-lg font-semibold text-[#111]">
-      No notes in {{ selectedCategory() }}
+      No notes found
     </h2>
     <p class="mt-2 text-sm text-[#666]">
-      Create a note with this category to see it listed here.
+      Try a different category search or create a note with this category.
     </p>
   </div>
   }

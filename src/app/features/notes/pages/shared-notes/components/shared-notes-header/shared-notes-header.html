@@ -19,6 +19,8 @@
         type="text"
         class="w-full border-none bg-transparent text-[0.8125rem] text-[#333] outline-none placeholder:text-[#bbb]"
         placeholder="Search a note"
+        [value]="searchTerm"
+        (input)="updateSearchTerm($any($event.target).value)"
       />
     </div>
     <!-- Filters -->

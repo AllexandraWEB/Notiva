@@ -26,7 +26,12 @@
         <span class="text-sm font-semibold" [style.color]="note.notebookColor">
           {{ note.notebook }}
         </span>
-        <span class="text-xs text-[#666]">{{ note.createdAt | date: 'mediumDate' }}</span>
+        <span
+          class="text-xs text-[#666]"
+          [title]="note.createdAt | date: 'fullDate'"
+        >
+          Created {{ note.createdAt | relativeDate }}
+        </span>
       </div>
 
       <h1 class="mt-4 text-3xl font-bold text-[#111]">{{ note.title }}</h1>
