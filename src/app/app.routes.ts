@@ -96,7 +96,9 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
+    title: '404 – Notiva',
+    loadComponent: () =>
+      import('./features/not-found/not-found').then((m) => m.NotFound),
   },
 ];
 
