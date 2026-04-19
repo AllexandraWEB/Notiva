@@ -70,7 +70,7 @@
     <article>
       <app-project-folder-card
         [title]="project.name"
-        [fileCount]="(projectsStore.projectNoteMap()[project.id] ?? []).length"
+        [fileCount]="projectsStore.projectNoteMap()[project.id].length"
         (open)="openProject(project.id)"
       />
     </article>
